@@ -1,0 +1,4 @@
+Deployment Guide:
+
+Server (and Client both?) need to have OpenSSL installed.
+	 - http://www.postgresql.org/docs/current/static/ssl-tcp.html
