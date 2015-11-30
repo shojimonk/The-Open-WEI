@@ -8,6 +8,10 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+Inventory_Tracker_Multiclass_Test/
+.metadata/
+.recommenders/
+
 # Windows Installer files
 *.cab
 *.msi
