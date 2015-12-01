@@ -16,18 +16,17 @@ public class Login_Pane extends JPanel{
 	private JPasswordField pass;
 	private JLabel nameLabel;
 	private JLabel passLabel;
-	private JLabel addStatus;
+	private Client_Frame mainFrame;
 	
 	/// Constructor. Only initializes all buttons, text/password fields, and handlers
-	public Login_Pane()
+	public Login_Pane(Client_Frame clientIn)
 	{
+		mainFrame = clientIn;
 		logIn = new JButton("Submit");
 		name = new JTextField("", 20);
 		pass = new JPasswordField("", 20);
 		nameLabel = new JLabel("Name:");
 		passLabel = new JLabel("Pass:");
-		addStatus = new JLabel("Checking Login...");
-		
 		
 		this.setLayout(new FlowLayout());
 		add(nameLabel);
@@ -61,10 +60,12 @@ public class Login_Pane extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
-			add(addStatus);
-			revalidate();
-			repaint();
-
+			String logInfo = getNameAndPass();
+			Boolean logResult = mainFrame.login(logInfo);
+			if(logResult)
+			{
+				mainFrame.grantAdmin();
+			}
 		}
 	}
 	

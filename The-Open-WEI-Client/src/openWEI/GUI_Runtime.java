@@ -8,9 +8,9 @@ public class GUI_Runtime {
 	/// Main method run at startup. checks if arguments for host and port were passed. 
 	/// Asks for them if not given or if given values fail.
 	public static void main(String[] args) {
-		String hostPort = "";
 		
-		Client_Frame myFrame = new Client_Frame(hostPort);
+		
+		Client_Frame myFrame = new Client_Frame();
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.setSize(1024, 768);
 		
@@ -18,14 +18,16 @@ public class GUI_Runtime {
 		
 		while(!isHost)
 		{
+			String hostPort = "";
 			if(args.length != 2)
 			{
 				String host = JOptionPane.showInputDialog(null, "Enter Host", "TITLE", JOptionPane.QUESTION_MESSAGE);
 				String port = JOptionPane.showInputDialog(null, "Enter Port", "TITLE_2", JOptionPane.QUESTION_MESSAGE);
 				hostPort = hostPort.concat(host);
-				hostPort = hostPort.concat(":");
-				hostPort = hostPort.concat(port);
-				
+				if(port.length() > 0){
+					hostPort = hostPort.concat(":");
+					hostPort = hostPort.concat(port);					
+				}
 			}
 			else
 			{

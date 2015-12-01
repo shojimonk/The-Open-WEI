@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.*;
+import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 
 /// JPanel extension that contains search bar, component type selector, and JTable which
 /// displays all given search results.
@@ -14,7 +17,7 @@ public class Inventory_Pane extends JPanel{
 	private JButton searchButton;
 	private JTextField keySearch;
 	private JPanel searchInterface;
-	private JTable searchResults;
+	private JTable searchTable;
 	private JScrollPane resultScroll;
 	private String[] colNames = {"Name", "Notes", "Quantity", "Location", "Last_Modified", "Spec Sheets"};		// To be removed
 	private String[] typeNames = {"Amplifier", "Battery", "Capacitor", "Fuse", 
@@ -22,12 +25,16 @@ public class Inventory_Pane extends JPanel{
 	private JComboBox<String> types;
 	private JLabel searchLabel;
 	private JLabel inLabel;
-	
+	private Client_Frame mainFrame;
+	private ResultSet searchResults;
+	private List<String[]> currentResults;
 	
 	/// constructor for JPanel that shows all search information.
-	public Inventory_Pane()
+	public Inventory_Pane(Client_Frame clientIn)
 	{
-		
+		mainFrame = clientIn;
+		searchResults = null;
+		currentResults = new ArrayList<String[]>();
 		searchButton = new JButton("Search");
 		keySearch = new JTextField("", 40);
 		types = new JComboBox<String>(typeNames);		// CHANGE THIS TO A GETTER
@@ -46,10 +53,10 @@ public class Inventory_Pane extends JPanel{
 		};
 		
 		types.getSelectedIndex();
-		searchResults = new JTable(myModel);
-		resultScroll = new JScrollPane(searchResults);
+		searchTable = new JTable(myModel);
+		resultScroll = new JScrollPane(searchTable);
 		
-		searchResults.setAutoCreateRowSorter(true);
+		searchTable.setAutoCreateRowSorter(true);
 		
 		add(searchInterface, BorderLayout.NORTH);
 		searchInterface.add(searchLabel);
@@ -72,7 +79,7 @@ public class Inventory_Pane extends JPanel{
 	/// output: an integer array containing the row numbers which are highlighted.
 	public int[] getSelectedRows()
 	{
-		int[] selected = searchResults.getSelectedRows();
+		int[] selected = searchTable.getSelectedRows();
 		for(int each : selected) System.out.print(String.format("%03d", each));
 		return selected;
 	}
@@ -92,17 +99,12 @@ public class Inventory_Pane extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
+			String keywords = keySearch.getText() + ";" +types.getSelectedItem().toString();
+			searchResults = mainFrame.search(keywords);
 			
 		}
 	}
 	
-	/// A simple method for passing user input for search requests.
-	/// output: String containing users keywords to search, and the component type selected.
-	public String search()
-	{
-		String keywords = keySearch.getText() + ";" +types.getSelectedItem().toString();
-		
-		return keywords;
-	}
+	
 	
 }

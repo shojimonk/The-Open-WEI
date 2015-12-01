@@ -5,13 +5,14 @@ import java.awt.FlowLayout;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.sql.*;
 
 /// The main frame for this program. Controls program logic and user interactions.
 /// Instantiates and uses Inventory_Pane, Login_Pane, and Database_Communications. 
 public class Client_Frame extends JFrame{
 
 	private static final long serialVersionUID = 6441095492601536502L;
-	private Inventory_Pane sPane;
+	private Inventory_Pane iPane;
 	private Login_Pane lPane;
 	private Database_Communications comms;
 	
@@ -25,12 +26,12 @@ public class Client_Frame extends JFrame{
 
 	/// Instantiates all panels and buttons, as well as custom classes.
 	/// Sets handlers for all objects.
-	public Client_Frame(String hostPort)
+	public Client_Frame()
 	{
 		super("The Open WEI");
 		this.setLayout(new BorderLayout());
-		sPane = new Inventory_Pane();
-		lPane = new Login_Pane();
+		iPane = new Inventory_Pane(this);
+		lPane = new Login_Pane(this);
 		comms = new Database_Communications();
 		
 		createNew = new JButton("Create New Entry");
@@ -42,7 +43,7 @@ public class Client_Frame extends JFrame{
 		
 		bottomButtons = new JPanel(new FlowLayout());
 		
-		add(sPane, BorderLayout.CENTER);
+		add(iPane, BorderLayout.CENTER);
 		
 		add(bottomButtons, BorderLayout.SOUTH);
 		
@@ -56,10 +57,7 @@ public class Client_Frame extends JFrame{
 		deleteSelected.addActionListener(myHandler);
 		createNew.addActionListener(myHandler);
 		importCSV.addActionListener(myHandler);
-		
-		loginHandler loginButton = new loginHandler();
-		lPane.addComponentListener(loginButton);
-		
+				
 	}
 	
 	/// Main control flow handled through user interaction with buttons, and limiting which 
@@ -69,65 +67,76 @@ public class Client_Frame extends JFrame{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == userLogin)
 			{
-				
+				remove(iPane);
+				add(lPane, BorderLayout.CENTER);
+				revalidate();
+				repaint();
+				lPane.setVisible(true);
 			}
 			else if(event.getSource() == userLogout)
 			{
-				
+				removeAdmin();
 			}
 			else if(event.getSource() == modifySelected)
 			{
-				
+				iPane.getSelectedRows();
 			}
 			else if(event.getSource() == createNew)
 			{
-				
+				// spawn window for entering new data 
 			}
-			
-		}
-	}
-	
-	/// Handles events triggered by changes to JPanels. Used by Login_Pane for 
-	/// triggering Client_Frame to grab username/pass and call login method.  
-	private class loginHandler implements ComponentListener
-	{
-		public void componentHidden(ComponentEvent arg0) {
-			
-			//Logic here for calling login() method.
-			String loginInfo = lPane.getNameAndPass();
-			Boolean logResult = comms.checkLogin(loginInfo);
-			if(logResult)
-			{
-				bottomButtons.remove(userLogin);
-				bottomButtons.add(createNew);
-				bottomButtons.add(deleteSelected);
-				bottomButtons.add(importCSV);
-				bottomButtons.add(userLogout);
-				
-				remove(lPane);
-				add(sPane, BorderLayout.CENTER);
-				revalidate();
-				repaint();
-			}
-			
-		}
-
-		public void componentMoved(ComponentEvent arg0) {
-			
-		}
-
-		public void componentResized(ComponentEvent arg0) {
-			
-		}
-
-		public void componentShown(ComponentEvent arg0) {
 			
 		}
 	}
 	
 	public Boolean dbCheck(String hostPort)
 	{
-		return comms.checkForHost(hostPort);
+		try {
+			return comms.checkForHost(hostPort);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean login(String logInfo)
+	{
+		return comms.checkLogin(logInfo);
+	}
+	
+	public void grantAdmin()
+	{
+		bottomButtons.remove(userLogin);
+		bottomButtons.add(createNew);
+		bottomButtons.add(deleteSelected);
+		bottomButtons.add(importCSV);
+		bottomButtons.add(userLogout);
+		
+		remove(lPane);
+		add(iPane, BorderLayout.CENTER);
+		revalidate();
+		repaint();
+	}
+	
+	public void removeAdmin()
+	{
+		bottomButtons.remove(userLogout);
+		bottomButtons.add(userLogin);
+		bottomButtons.remove(createNew);
+		bottomButtons.remove(deleteSelected);
+		bottomButtons.remove(importCSV);
+
+		revalidate();
+		repaint();
+	}
+	
+	/// A simple method for passing user input for search requests.
+	/// output: String containing users keywords to search, and the component type selected.
+	public ResultSet search(String searchString)
+	{
+		ResultSet searchResults = comms.sendQuery(searchString);
+		return searchResults;
 	}
 
 }
