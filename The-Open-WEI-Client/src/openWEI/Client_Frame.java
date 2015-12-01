@@ -93,9 +93,9 @@ public class Client_Frame extends JFrame{
 	{
 		try {
 			return comms.checkForHost(hostPort);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException ex) {
+			System.out.println("failed in client frame...");
+			ex.printStackTrace();
 		}
 		return false;
 	}
@@ -133,7 +133,7 @@ public class Client_Frame extends JFrame{
 	
 	/// A simple method for passing user input for search requests.
 	/// output: String containing users keywords to search, and the component type selected.
-	public ResultSet search(String searchString)
+	public ResultSet search(String[] searchString)
 	{
 		ResultSet searchResults = comms.sendQuery(searchString);
 		return searchResults;

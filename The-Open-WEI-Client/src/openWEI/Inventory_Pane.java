@@ -20,7 +20,7 @@ public class Inventory_Pane extends JPanel{
 	private JTable searchTable;
 	private JScrollPane resultScroll;
 	private String[] colNames = {"Name", "Notes", "Quantity", "Location", "Last_Modified", "Spec Sheets"};		// To be removed
-	private String[] typeNames = {"Amplifier", "Battery", "Capacitor", "Fuse", 
+	private String[] typeNames = {"Amplifier", "batteries", "Capacitor", "Fuse", 
 			"Inductor", "LED", "Microcontroller", "Motor", "Resistor", "Sensor", "Transformer", "Transistor"}; 	// To be removed
 	private JComboBox<String> types;
 	private JLabel searchLabel;
@@ -99,7 +99,8 @@ public class Inventory_Pane extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
-			String keywords = keySearch.getText() + ";" +types.getSelectedItem().toString();
+			String[] keywords = {types.getSelectedItem().toString(), keySearch.getText()};
+			System.out.println("searching table: " + keywords[0] + " for string: " + keywords[1]);
 			searchResults = mainFrame.search(keywords);
 			
 		}

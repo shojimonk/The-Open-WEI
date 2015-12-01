@@ -28,16 +28,16 @@ public class Database_Communications {
 	{
 		
 		Properties connProperties = new Properties();
-		connProperties.setProperty("user", "username");
-		connProperties.setProperty("password", "myPass");
-		connProperties.setProperty("ssl", "true");
+		connProperties.setProperty("user", "theUser");
+		connProperties.setProperty("password", "thePass");
+		//connProperties.setProperty("ssl", "true");
 		String url = "jdbc:postgresql://" +hostPort+"/ohmbaseopenwei";
 		
 		try{
 			conn = DriverManager.getConnection(url, connProperties);
 		}
 		catch(SQLException ex){
-			System.out.println("failed to connect...");
+			System.out.println("failed to connect to: "+url);
 			return false;
 		}
 		
@@ -58,10 +58,41 @@ public class Database_Communications {
 	/// Builds an SQL select statement with the given search string. Parses
 	/// results into a list of strings
 	/// output: list of strings. each entry corresponds to one row of the results.
-	public ResultSet sendQuery(String searchString)
+	public ResultSet sendQuery(String[] searchString)
 	{
 		ResultSet results = null;
+		Statement stmnt = null;
 		
+		String searchable = "select name, notes, quantity, last_modified, spec_sheets, location from " + 
+				searchString[0] + " where "+ searchString[0] + ".name like '%" + searchString[1] + "%';";
+		System.out.println(searchable);
+		
+		try{
+			stmnt = conn.createStatement();
+			results = stmnt.executeQuery(searchable);
+			while(results.next())
+			{
+				String rowName = results.getString("name");
+				String rowNotes = results.getString("notes");
+				
+				int intQuantity = results.getInt("quantity");
+				String rowQuantity = String.format("%d", intQuantity);
+				
+				Date dateDate = results.getDate("last_modified");
+				String rowDate = dateDate.toString();
+				
+				String rowSpecs = results.getString("spec_sheets");
+				String rowLocation = results.getString("location");
+				
+				System.out.println(rowName + "\t" + rowNotes + "\t" + rowQuantity + "\t" + rowDate + "\t" + rowSpecs + "\t" + rowLocation);
+				
+			}
+			stmnt.close();
+		}
+		catch(SQLException ex){
+			System.out.println("Error with select.");
+			ex.printStackTrace();
+		}
 		return results;
 		
 	}
