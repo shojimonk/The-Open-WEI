@@ -200,7 +200,9 @@ create table other
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
-create table account
+
+create schema users;
+create table users.account
 (
 	username text null constraint valid_username check (length(username) >= 0),
 	password text null constraint valid_password check (length(password) >= 0)
