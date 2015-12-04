@@ -3,6 +3,8 @@ insert into batteries (name, notes, quantity, spec_sheets, location) values
 	('regular Ds', 'just a regular D-cell battery', 6, ' ', 'bin 44'),
 	('AAA duracell', 'triple A from duracell', 11, 'www.duracell.com/aaa', 'bin 45');
 	
+
+truncate users.account;
 insert into users.account (username, password) values
-	('bob', 'test'),
-	('shoji', 'monk');
+	('bob', '$2a$10$bGUT9bguHFLq8zUokDyUIuUsC9VEEt2Zg.tyxSRxuUFxOmEWiwG2u'),
+	('shoji', '$2a$10$VEhoQxsLo1uF6YJf0lnwHO06stoqz6tF8aZ03crt0Ag5F3giPyxMe');
