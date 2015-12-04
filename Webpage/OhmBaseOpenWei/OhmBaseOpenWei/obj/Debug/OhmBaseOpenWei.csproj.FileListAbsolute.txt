@@ -1,0 +1,8 @@
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\bin\OhmBaseOpenWei.dll.config
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\bin\OhmBaseOpenWei.dll
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\bin\OhmBaseOpenWei.pdb
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\bin\Npgsql.dll
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\bin\Npgsql.xml
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\obj\Debug\OhmBaseOpenWei.csprojResolveAssemblyReference.cache
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\obj\Debug\OhmBaseOpenWei.dll
+c:\users\brandon\documents\visual studio 2013\Projects\OhmBaseOpenWei\OhmBaseOpenWei\obj\Debug\OhmBaseOpenWei.pdb

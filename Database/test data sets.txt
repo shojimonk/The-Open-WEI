@@ -1,8 +1,11 @@
 insert into batteries (name, notes, quantity, spec_sheets, location) values
 	('12v', 'yep, its a 12 volt', 25, 'www.its_a_12_volt.com', 'bin 44'),
 	('regular Ds', 'just a regular D-cell battery', 6, ' ', 'bin 44'),
-	('AAA duracell', 'triple A from duracell', 11, 'www.duracell.com/aaa', 'bin 45');
+	('AAA duracell', 'triple A from duracell', 11, 'www.duracell.com/aaa', 'bin 45'),
+	('12.v', 'yep, its a 12 volt again', 45, 'www.its_a_12_volt_again.com', 'bin 44'),
+	('AA energizer', 'just a regular AA battery', 7, ' ', 'bin 44'),
+	('AAA,duracel', 'triple A from duracell', 11, 'www.duracell.com/aaa', 'bin 45');
 	
 insert into users.account (username, password) values
 	('bob', 'test'),
-	('shoji', 'monk');
+	('shoji', 'monk');S
