@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title>The Open WEI</title>
     <center><div style="font-size: 36pt;color:#00000">The Open WEI</div></center>
     <center><div style="font-size: 20pt;color:#00000;margin-bottom: 40px">Ohmbase Inventory Management</div></center>
+<script>
+function showData() {
+	part = document.getElementById("parts").value;
+	searchname = document.getElementById("searchbox").value;
+	alert(part);
+	alert(searchname);
+    if (part == "") {
+        document.getElementById("datatable").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        }else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("datatable").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","get_database_data.php?selection="+part+"&search="+searchname,true);
+        xmlhttp.send();
+    }
+}
+</script>
 </head>
 <body>
-<style>
-th,td{
-width: 20%;
-border:1px solid black;
-}
-</style>
 
 <center>
-	<select>
+<form>
+	<select id="parts" name="parts">
+		<option value="">Select a part:</option>
 		<option value="amplifiers">Amplifiers</option>
 		<option value="batteries">Batteries</option>
 		<option value="buzzers">Buzzers</option>
@@ -39,19 +61,15 @@ border:1px solid black;
 		<option value="transistors">Transistors</option>
 		<option value="other">Other</option>	
 	</select> 
-	<input type="text" placeholder="Search...">
-	<input type="button" value="Search" />
-	<div>
-	<table border='1' width="80%">
-		<tr>
-			<th>Name</th>
-			<th>Notes</th>
-			<th>Quantity</th>
-			<th>Last Modified</th>
-			<th>Spec Sheets</th>
-		</tr>
-	</table>
+	<input type="text" placeholder="Search..." id="searchbox">
+	<button onClick="showData()">Search</button>
+	</form>
+	<br>
+	<div id="datatable"><b>Start Your Search Here</b></div>
 	</center>
+	
+
+
 
 </body>
 </html>

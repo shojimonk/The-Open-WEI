@@ -4,6 +4,7 @@ set datestyle to 'SQL, DMY';
 
 create table amplifiers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) >0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -12,7 +13,8 @@ create table amplifiers
 	location text null constraint valid_location check (length(location) > 0)
 );
 create table batteries
-(
+( 
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -22,6 +24,7 @@ create table batteries
 	);
 create table buzzers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -31,6 +34,7 @@ create table buzzers
 );
 create table capacitors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -40,6 +44,7 @@ create table capacitors
 );
 create table diodes
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -49,6 +54,7 @@ create table diodes
 );
 create table fuses
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -58,6 +64,7 @@ create table fuses
 );
 create table inductors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -67,6 +74,7 @@ create table inductors
 );
 create table isolators
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -76,6 +84,7 @@ create table isolators
 );
 create table leds
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -85,6 +94,7 @@ create table leds
 );
 create table logic_gates
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -94,6 +104,7 @@ create table logic_gates
 );
 create table microcontrollers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -103,6 +114,7 @@ create table microcontrollers
 );
 create table microphones
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -112,6 +124,7 @@ create table microphones
 );
 create table motors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -121,6 +134,7 @@ create table motors
 );
 create table oscillators
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -130,6 +144,7 @@ create table oscillators
 );
 create table potentiometers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -139,6 +154,7 @@ create table potentiometers
 );
 create table power_supplies
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -148,6 +164,7 @@ create table power_supplies
 );
 create table resistors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -157,6 +174,7 @@ create table resistors
 );
 create table sensors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -166,6 +184,7 @@ create table sensors
 );
 create table speakers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -175,6 +194,7 @@ create table speakers
 );
 create table transformers
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -184,6 +204,7 @@ create table transformers
 );
 create table transistors
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -193,6 +214,7 @@ create table transistors
 );
 create table other
 (
+	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
 	quantity integer null constraint valid_quantity check (quantity >= 0),
@@ -204,6 +226,7 @@ create table other
 create schema users;
 create table users.account
 (
+	ID serial primary key,
 	username text null constraint valid_username check (length(username) >= 0),
 	password text null constraint valid_password check (length(password) >= 0)
 );
