@@ -3,6 +3,19 @@ insert into batteries (name, notes, quantity, spec_sheets, location) values
 	('regular Ds', 'just a regular D-cell battery', 6, ' ', 'bin 44'),
 	('AAA duracell', 'triple A from duracell', 11, 'www.duracell.com/aaa', 'bin 45');
 	
+insert into resistors (name, notes, quantity, spec_sheets, location) values
+	('100 ohm', '+-5%, 5W', 20, 'basic_resistors.com', 'row 4 shelf 8'),
+	('1k ohm', '+-5% 10W', 11, 'basic_resistors.com', 'row 4 shelf 9'),
+	('10k ohm', '+-10% 20W', 11, 'basic_resistors.com', 'row 4 shelf 10');
+	
+insert into logic_gates (name, notes, quantity, spec_sheets, location) values
+	('2 input AND', 'each has 3 pairs in, 3 single outs', 14, 'www.GATESrUS.com', 'bin 11'),
+	('2 input NEG', 'each has 3 pairs in, 3 single outs', 10, 'www.GATESrUS.com', 'bin 11'),
+	('2 input NAND', 'each has 3 pairs in, 3 single outs', 10, 'www.GATESrUS.com', 'bin 12'),
+	('3 input XOR', 'each has 2 sets input, 2 outs', 28, 'www.GATESrUS.com', 'bin 17'),
+	('3 input NOR', 'each has 2 sets input, 2 outs', 8, 'www.GATESrUS.com', 'bin 15'),
+	('3 input NAND', 'each has 2 sets input, 2 outs', 14, 'www.GATESrUS.com', 'bin 12'),
+	('3 input OR', 'each has 2 sets input', 7, 'www.GATESrUS.com', 'bin 14');
 
 truncate users.account;
 insert into users.account (username, password) values
