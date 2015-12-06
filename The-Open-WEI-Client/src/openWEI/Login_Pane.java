@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import jBCrypt.BCrypt;
 
-/// extension of JPanel for displaying username and password fields for user login.
-/// will encrypt password data before passing off to Client_Frame.
+/**
+ * extension of JPanel for displaying Username and Password fields for user login.
+ * @author ShojiStudios
+ *
+ */
 public class Login_Pane extends JPanel{
 
 	private static final long serialVersionUID = -4615172399730986636L;
@@ -19,7 +22,10 @@ public class Login_Pane extends JPanel{
 	private JLabel passLabel;
 	private Client_Frame mainFrame;
 	
-	/// Constructor. Only initializes all buttons, text/password fields, and handlers
+	/**
+	 * Constructor. Only initializes all buttons, text/password fields, and handlers
+	 * @param clientIn
+	 */
 	public Login_Pane(Client_Frame clientIn)
 	{
 		mainFrame = clientIn;
@@ -43,29 +49,33 @@ public class Login_Pane extends JPanel{
 		cancel.addActionListener(loginEvent);
 		name.addActionListener(loginEvent);
 		pass.addActionListener(loginEvent);
-		//nameLabel.setEnabled(false);
-		//passLabel.setEnabled(false);
 		logIn.requestFocusInWindow();
 	}
 
-	/// method called by client frame to grab entered username and pass. 
-	/// encryption occurs before passing off data.
-	/// Output: String containing username and encrypted password.
+	/**
+	 * Method called by client frame to grab entered username and pass. 
+	 * @return String containing username and encrypted password.
+	 */
 	public String[] getNameAndPass()
 	{
-		// Put encryption here !
+		// **** Encryption for setting new passwords here. Currently do not have "add new users" as an implemented feature. ****
 		//String passSalt = BCrypt.gensalt(10);
 		//String hashedPass = BCrypt.hashpw(new String(pass.getPassword()), passSalt);
 		//System.out.println("Hashed to: " + hashedPass);
 		
-		String tmpPass = new String(pass.getPassword());		//dont use this because strings hold data invisibly after being cleared
+		
+		String tmpPass = new String(pass.getPassword());
 		String tmpName= name.getText();
 		String[] namePass = {tmpName, tmpPass};
 		pass.setText("");
 		return namePass;
 	}
 	
-	/// Event handler for login pane. Whenever button is pressed, adds JLabel to trigger component event in Client Frame.
+	/**
+	 * Event handler for login pane. Passes user commands back to Client Frame.
+	 * @author ShojiStudios
+	 *
+	 */
 	private class buttHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) 

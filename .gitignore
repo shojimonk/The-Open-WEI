@@ -11,7 +11,8 @@ $RECYCLE.BIN/
 Inventory_Tracker_Multiclass_Test/
 .metadata/
 .recommenders/
-*.class
+The-Open-WEI-Client/bin/
+
 
 # Windows Installer files
 *.cab
@@ -50,3 +51,4 @@ Inventory_Tracker_Multiclass_Test/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.class

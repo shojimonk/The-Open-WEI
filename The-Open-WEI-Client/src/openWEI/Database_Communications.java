@@ -6,17 +6,19 @@ import java.util.Properties;
 import jBCrypt.BCrypt;
 import java.sql.*;
 
-/*
- *  Class used to communicate with remote database. Utilizes JDBC API.
- *  Builds SQL queries and commands, and parses query results before returning them to the calling object. 
+/**
+ * Class used to communicate with remote database. Utilizes JDBC API.
+ * Builds SQL queries and commands, and parses query results before returning them to the calling object.
+ * @author ShojiStudios
+ *
  */
 public class Database_Communications {
 	
 	private Connection conn;
 	
-	/*
+	/**
 	 * Class constructor. Sets database type to PostgreSQL.
-	 * Throws error if PostgreSQL driver not available.
+	 * Catches error if PostgreSQL driver not available.
 	 */
 	public Database_Communications()
 	{
@@ -28,16 +30,18 @@ public class Database_Communications {
 		}
 	}
 	
-	/*
+	/**
 	 * Checks for a database at the given host:port location.
-	 * Output: boolean representing presence of database.
+	 * @param hostPort String containing hostAddress:port of the database to connect to.
+	 * @return Boolean representing presence of database.
+	 * @throws SQLException If no database at given host:port location.
 	 */
 	public Boolean checkForHost(String hostPort) throws SQLException
 	{
 		
 		Properties connProperties = new Properties();
-		connProperties.setProperty("user", "postgres");
-		connProperties.setProperty("password", "pandabear");
+		connProperties.setProperty("user", "nuh-uh");
+		connProperties.setProperty("password", "secret");
 		//connProperties.setProperty("ssl", "true");
 		String url = "jdbc:postgresql://" +hostPort+"/ohmbaseopenwei";
 		
@@ -53,54 +57,44 @@ public class Database_Communications {
 		return true;
 	}
 	
-	/*
-	 *  Builds query to check database for login matching the given value.
-	 *  Output: boolean representing if there was a successful match.
+	/**
+	 * Builds query to check database for login matching the given value.
+	 * @param login String Array containing username and password. 
+	 * @return boolean representing if there was a successful match.
 	 */
 	public Boolean checkLogin(String[] login)
 	{
 		ResultSet results = null;
 		Statement stmnt = null;
-		String searchable = "select username, password from users.account where username like '" + login[0] + "';";
-		System.out.println(searchable);
-		try{
-			stmnt = conn.createStatement();
-			results = stmnt.executeQuery(searchable);
+		String searchable = "select username, password from users.account where username = ?;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(searchable);
+			ps.setString(1, login[0]);
+			results = ps.executeQuery();
 			while(results.next()){
 				String returnedPass = results.getString(2);
-				System.out.println("returned pass: " + returnedPass);
-				System.out.println("given pass: " + login[1]);
 				if (BCrypt.checkpw(login[1], returnedPass)){ return true; }
 			}
-		}
-		catch(SQLException ex){
-			System.out.println("Error with select.");
-			ex.printStackTrace();
-		}
-		
+		} catch (SQLException e) {
+			System.out.println("Error logging in.");
+			e.printStackTrace();
+		}		
 		return false;
 	}
 	
-	/*
-	 *  Builds an SQL select statement with the given search string. Parses results into a list of strings
-	 *  output: SQL ResultSet that contains all the search results.
-	 */ 
+	/**
+	 * Builds an SQL select statement with the given search string. Parses results into a list of strings
+	 * @param search String array containing user search terms and table to search. 
+	 * @return SQL ResultSet that contains all the search results.
+	 */
 	public ResultSet sendQuery(String[] search)
 	{
 		ResultSet results = null;
-		//Statement stmnt = null;
-		//String searchable = "select ID, name, notes, quantity, last_modified, spec_sheets, location from " + 
-		//		searchString[0] + " where "+ searchString[0] + ".name like '%" + searchString[1] + "%';";
-		//System.out.println(searchable);
 		
 		try{
 			PreparedStatement ps = conn.prepareStatement("SELECT ID, name, notes, quantity, last_modified, spec_sheets, location from "+ search[0] +" where "+ search[0] +".name like ? ;");
-			//ps.setString(1, search[0]);
-			//ps.setString(2, search[0]);
 			ps.setString(1, "%" + search[1] + "%");
 			results = ps.executeQuery();
-			//stmnt = conn.createStatement();
-			//results = stmnt.executeQuery(searchable);
 		}
 		catch(SQLException ex){
 			System.out.println("Error with select.");
@@ -109,8 +103,10 @@ public class Database_Communications {
 		return results;
 	}
 
-	/*
-	 * 
+	/**
+	 * Takes list of user updates, and iterates through them, applying all updates to the database.
+	 * @param updates List of List of Strings, where each list holds table name, column name, modified value, and the row ID.
+	 * @return boolean representing success for all updates, or failure for at least one.
 	 */
 	public boolean modifyData(List<List<String>> updates){
 		
@@ -124,12 +120,6 @@ public class Database_Communications {
 					ps = conn.prepareStatement("UPDATE "+ each.get(0) +" SET "+ each.get(1) +" = ? WHERE ID = "+ each.get(3) +" ;");
 					ps.setString(1, each.get(2));
 				}
-				/*
-				ps.setString(1, each.get(0));
-				ps.setString(2, each.get(1));
-				ps.setString(3, each.get(2));
-				ps.setString(4, each.get(3));
-				*/
 				System.out.println("Query is: " + ps.toString());
 				ps.executeUpdate();
 			} catch (SQLException e) {
@@ -141,8 +131,11 @@ public class Database_Communications {
 		return true;
 	}
 	
-	/*
+	/**
 	 * For adding a new entry to the database in the chosen table.
+	 * @param compType
+	 * @param values
+	 * @return
 	 */
 	public boolean newEntry(String compType, String values)
 	{
@@ -151,6 +144,10 @@ public class Database_Communications {
 		return true;
 	}
 	
+	/**
+	 * Gets list of tables in the database that the user is able to search and modify.
+	 * @return List of table names in string format.
+	 */
 	public List<String> getTables()
 	{
 		List<String> columns = new ArrayList<String>();
@@ -169,4 +166,5 @@ public class Database_Communications {
 		
 		return columns;
 	}
+	
 }

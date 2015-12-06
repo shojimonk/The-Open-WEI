@@ -13,9 +13,11 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.ArrayList;
 
-/*
- *  JPanel extension that contains search bar, component type selector, and JTable which
- *  displays all given search results.
+/**
+ * JPanel extension that contains search bar, component type selector, and JTable which
+ * displays all given search results.
+ * @author ShojiStudios
+ * 
  */
 public class Inventory_Pane extends JPanel{
 
@@ -40,8 +42,9 @@ public class Inventory_Pane extends JPanel{
 	private List<int[]> modified;
 	private String currentTable;
 	
-	/*
-	 *  constructor for JPanel that shows all search information.
+	/**
+	 * constructor for JPanel that shows all search information.
+	 * @param clientIn
 	 */
 	public Inventory_Pane(Client_Frame clientIn)
 	{
@@ -84,8 +87,10 @@ public class Inventory_Pane extends JPanel{
 		
 	}
 	
-	/*
+	/**
 	 * Used for cell edits on JTable of search results. Stores each edited cell in a list.
+	 * @author ShojiStudios
+	 *
 	 */
 	private class TableHandler implements TableModelListener
 	{
@@ -100,11 +105,12 @@ public class Inventory_Pane extends JPanel{
 		}
 	}
 	
-	/*
+	/**
 	 * Confirms if user wants to commit all changes made:
 	 * Yes commits all changes and returns list of changes.
 	 * No undoes all changes and returns null.
 	 * Cancel takes no action and returns null.
+	 * @return List of List of Strings, where each list holds table name, column name, modified value, and the row ID.
 	 */
 	public List<List<String>> confirmModify(){
 		String listMod = "";
@@ -130,6 +136,12 @@ public class Inventory_Pane extends JPanel{
 		
 	}
 	
+	/**
+	 * Builds List of Strings to be used in SQL update.
+	 * @param row is the row that was modified
+	 * @param col is the column that was modified for that row
+	 * @return List of Strings holding table name, column name, modified value, and the row ID.
+	 */
 	private List<String> convertRowToString(int row, int col){
 		List<String> toModify = new ArrayList<String>();
 		String colName = searchTable.getColumnName(col);
@@ -143,8 +155,10 @@ public class Inventory_Pane extends JPanel{
 	}
 	
 	
-	/*
-	 *  event handler for search button and pressing enter key in the keyword field.
+	/**
+	 * Event handler for search button and pressing enter key in the keyword field.
+	 * @author ShojiStudios
+	 *
 	 */
 	private class inventHandler implements ActionListener
 	{
@@ -172,8 +186,11 @@ public class Inventory_Pane extends JPanel{
 		}
 	}
 	
-	/*
-	 * builds table model from SQL ResultSet.
+	/**
+	 * Builds a table model from the SQL ResultSet. Specified for admin privileges on what can be updated.
+	 * @param rs the result set which is going to be displayed
+	 * @return DefaultTableModel to build the search results table with.
+	 * @throws SQLException when errors encountered in building the table.
 	 */
 	public static DefaultTableModel buildTableModel(ResultSet rs)
 		throws SQLException{
@@ -217,8 +234,8 @@ public class Inventory_Pane extends JPanel{
 		return tmpModel;
 	}
 	
-	/*
-	 * used to set/update the list of tables that the user can search. 
+	/**
+	 * Called for class to set/update the list of tables that the user can search.
 	 */
 	public void setTableNames()
 	{
@@ -229,54 +246,55 @@ public class Inventory_Pane extends JPanel{
 		repaint();
 	}
 	
-	/*
-	 *clears the list of table cells that have been modified. 
+	/**
+	 * Clears the list of table cells that have been modified.
 	 */
 	public void resetModList(){
 		modified.clear();
 	}
 	
-	/*
-	 * sets current users admin status to the passed boolean value.
+	/**
+	 * Sets current users admin status to the passed boolean value.
+	 * @param status whether user has admin privileges or not.
 	 */
 	public void setAdmin(boolean status){
 		admin = status;
 	}
 	
-	/*
+	/**
 	 * returns whether or not current user has logged in as admin or not.
+	 * @return boolean representing admin status.
 	 */
 	public boolean checkAdmin(){
 		return admin;
 	}
 	
-	/*
+	/**
 	 * 
 	 */
-	public void createMod(){
+	public void createNew(){
 		List<String> fields = new ArrayList<String>();
 		List<String> values = new ArrayList<String>();
 		
-		int[] selected = searchTable.getSelectedRows();
-		for(int each : selected){
-			//searchTable
-		}
-		
+		// create window to enter new data
 		
 		newDatPane = new NewData_Pane(this, fields, values);
 		newDatPane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newDatPane.setVisible(true);
 	}
 	
-	public void cancelMod(){
+	/**
+	 * 
+	 */
+	public void cancelNew(){
 		newDatPane.setVisible(false);
 		newDatPane.dispose();
 	}
 	
-	/*
-	 *  simple method for passing which rows in the JTable the user has selected.
-	 *  generally used when an admin has clicked a button in client frame for "update" or "delete".
-	 *  output: an integer array containing the row numbers which are highlighted.
+	/**
+	 *  Simple method for passing which rows in the JTable the user has selected.
+	 *  Used when an admin has clicked a button in client frame for "delete".
+	 * @return	An integer array containing the row numbers which are highlighted.
 	 */ 
 	public int[] getSelectedRows()
 	{

@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.awt.event.*;
 import java.sql.*;
 
-/// The main frame for this program. Controls program logic and user interactions.
-/// Instantiates and uses Inventory_Pane, Login_Pane, and Database_Communications. 
+/**
+ * The main frame for this program. Controls program logic and user interactions.
+ * Instantiates and uses Inventory_Pane, Login_Pane, and Database_Communications. 
+ * @author ShojiStudios
+ *
+ */
 public class Client_Frame extends JFrame{
 
 	private static final long serialVersionUID = 6441095492601536502L;
@@ -27,8 +31,9 @@ public class Client_Frame extends JFrame{
 	private JButton userLogout;
 	private JPanel bottomButtons;
 
-	/// Instantiates all panels and buttons, as well as custom classes.
-	/// Sets handlers for all objects.
+	/**
+	 * Instantiates all panels and buttons, as well as custom classes. Sets handlers for all objects.
+	 */
 	public Client_Frame()
 	{
 		super("The Open WEI");
@@ -63,8 +68,12 @@ public class Client_Frame extends JFrame{
 				
 	}
 	
-	/// Main control flow handled through user interaction with buttons, and limiting which 
-	/// buttons/panels are accessible to the user.
+	/**
+	 * Main control flow handled through user interaction with buttons, and limiting which 
+	 * buttons/panels are accessible to the user.
+	 * @author ShojiStudios
+	 *
+	 */
 	private class actionHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) {
@@ -101,13 +110,13 @@ public class Client_Frame extends JFrame{
 			{
 				// spawn window for entering new data 
 			}
-			
 		}
 	}
 	
-	/*
+	/**
 	 * Checks for database at given host and port. 
-	 * Output: True if successfully connected to DB, else false.
+	 * @param hostPort The host:port to check, in String format.
+	 * @return True if successfully connected to DB, else false.
 	 */
 	public Boolean dbCheck(String hostPort)
 	{
@@ -122,15 +131,19 @@ public class Client_Frame extends JFrame{
 		return false;
 	}
 	
-	/*
+	/**
 	 * Passes user given login info to database communications.
-	 * Output: true if login name/pass match. else false.
+	 * @param logInfo User entered username and password to check for.
+	 * @return True if login name/pass match. else false.
 	 */
 	public Boolean login(String[] logInfo)
 	{
 		return comms.checkLogin(logInfo);
 	}
 	
+	/**
+	 * Returns user to Inventory Pane without attempting to log in.
+	 */
 	public void cancelLogin()
 	{
 		remove(lPane);
@@ -141,6 +154,9 @@ public class Client_Frame extends JFrame{
 		repaint();
 	}
 	
+	/**
+	 * Called when user has successfully logged in. Adds admin functionality buttons.
+	 */
 	public void grantAdmin()
 	{
 		bottomButtons.remove(userLogin);
@@ -158,6 +174,9 @@ public class Client_Frame extends JFrame{
 		repaint();
 	}
 	
+	/**
+	 * Called when a user logs out. Removes admin functionality buttons.
+	 */
 	public void removeAdmin()
 	{
 		bottomButtons.remove(userLogout);
@@ -170,16 +189,20 @@ public class Client_Frame extends JFrame{
 		repaint();
 	}
 	
-	/*
-	 *  A simple method for passing user input for search requests.
-	 *  output: String containing users keywords to search, and the component type selected.
+	/**
+	 * A simple method for passing user input for search requests.
+	 * @param searchString String containing users keywords to search, and the component type selected.
+	 * @return ResultSet containing results of the users search.
 	 */
-	
 	public ResultSet search(String[] searchString)		// changed from returning ArrayList<ArrayList<String>>
 	{
 		return comms.sendQuery(searchString);
 	}
 
+	/**
+	 * Gets list of searchable tables in the Database
+	 * @return List of names of searchable tables in the connected database.
+	 */
 	public List<String> getTables()
 	{
 		return comms.getTables();
