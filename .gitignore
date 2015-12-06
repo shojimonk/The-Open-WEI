@@ -11,6 +11,7 @@ $RECYCLE.BIN/
 Inventory_Tracker_Multiclass_Test/
 .metadata/
 .recommenders/
+*.class
 
 # Windows Installer files
 *.cab
