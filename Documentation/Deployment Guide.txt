@@ -5,3 +5,12 @@ Server (and Client both?) need to have OpenSSL installed.
 
 "[for postgresql] To allow connections to other interfaces than the loopback interface, you must modify the postgresql.conf file's listen_addresses setting."
 	 - https://jdbc.postgresql.org/documentation/80/prepare.html
+
+Server must have iis installed with asp.net capabilities enabled
+	 -http://www.iis.net/learn/application-frameworks/scenario-build-an-aspnet-website-on-iis/configuring-step-1-install-iis-and-asp-net-modules
+
+Server must then set up a website 
+	 -https://support.microsoft.com/en-us/kb/323972
+After setting up a website you must then put all the deployed website files into the selected website folder
+
+Then the server has to have portforwarding to access the website from the internet
