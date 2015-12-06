@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.event.*;
 import java.sql.*;
 
@@ -15,9 +17,10 @@ public class Client_Frame extends JFrame{
 	private Inventory_Pane iPane;
 	private Login_Pane lPane;
 	private Database_Communications comms;
+	private Client_Frame selfReference;
 	
 	private JButton createNew;
-	private JButton modifySelected;
+	private JButton commitModify;
 	private JButton deleteSelected;
 	private JButton importCSV;
 	private JButton userLogin;
@@ -31,11 +34,11 @@ public class Client_Frame extends JFrame{
 		super("The Open WEI");
 		this.setLayout(new BorderLayout());
 		iPane = new Inventory_Pane(this);
-		lPane = new Login_Pane(this);
 		comms = new Database_Communications();
+		selfReference = this;		// used for instantiating lPane from event handler.
 		
 		createNew = new JButton("Create New Entry");
-		modifySelected = new JButton("Modify Selected Data");
+		commitModify = new JButton("Commit Modifications");
 		deleteSelected = new JButton("Delete Selected Data");
 		importCSV = new JButton("Import .csv");
 		userLogin = new JButton("Log In");
@@ -47,13 +50,13 @@ public class Client_Frame extends JFrame{
 		
 		add(bottomButtons, BorderLayout.SOUTH);
 		
-		bottomButtons.add(modifySelected);
+		bottomButtons.add(commitModify);
 		bottomButtons.add(userLogin);
 		
 		actionHandler myHandler = new actionHandler();
 		userLogin.addActionListener(myHandler);
 		userLogout.addActionListener(myHandler);
-		modifySelected.addActionListener(myHandler);
+		commitModify.addActionListener(myHandler);
 		deleteSelected.addActionListener(myHandler);
 		createNew.addActionListener(myHandler);
 		importCSV.addActionListener(myHandler);
@@ -68,7 +71,11 @@ public class Client_Frame extends JFrame{
 			if(event.getSource() == userLogin)
 			{
 				remove(iPane);
+				lPane = new Login_Pane(selfReference);
 				add(lPane, BorderLayout.CENTER);
+				userLogin.setEnabled(false);
+				commitModify.setEnabled(false);
+				//lPane.requestFocusInWindow();
 				revalidate();
 				repaint();
 				lPane.setVisible(true);
@@ -77,9 +84,18 @@ public class Client_Frame extends JFrame{
 			{
 				removeAdmin();
 			}
-			else if(event.getSource() == modifySelected)
+			else if(event.getSource() == commitModify)
 			{
-				iPane.getSelectedRows();
+				List<List<String>> modifications = iPane.confirmModify();
+				if(modifications != null){
+					System.out.println("Not null.");
+					boolean updated = comms.modifyData(modifications);
+					System.out.println("updated?:" + updated);
+					return;
+				}
+				System.out.println("Is null.");
+				//iPane.getSelectedRows();
+				//iPane.createMod();
 			}
 			else if(event.getSource() == createNew)
 			{
@@ -89,10 +105,16 @@ public class Client_Frame extends JFrame{
 		}
 	}
 	
+	/*
+	 * Checks for database at given host and port. 
+	 * Output: True if successfully connected to DB, else false.
+	 */
 	public Boolean dbCheck(String hostPort)
 	{
 		try {
-			return comms.checkForHost(hostPort);
+			Boolean isHost = comms.checkForHost(hostPort);
+			if(isHost) { iPane.setTableNames(); }			// if there is a host at the port, set the list of component types 
+			return isHost;
 		} catch (SQLException ex) {
 			System.out.println("failed in client frame...");
 			ex.printStackTrace();
@@ -100,9 +122,23 @@ public class Client_Frame extends JFrame{
 		return false;
 	}
 	
-	public Boolean login(String logInfo)
+	/*
+	 * Passes user given login info to database communications.
+	 * Output: true if login name/pass match. else false.
+	 */
+	public Boolean login(String[] logInfo)
 	{
 		return comms.checkLogin(logInfo);
+	}
+	
+	public void cancelLogin()
+	{
+		remove(lPane);
+		add(iPane, BorderLayout.CENTER);
+		userLogin.setEnabled(true);
+		commitModify.setEnabled(true);
+		revalidate();
+		repaint();
 	}
 	
 	public void grantAdmin()
@@ -112,9 +148,12 @@ public class Client_Frame extends JFrame{
 		bottomButtons.add(deleteSelected);
 		bottomButtons.add(importCSV);
 		bottomButtons.add(userLogout);
+		commitModify.setEnabled(true);
 		
 		remove(lPane);
+		
 		add(iPane, BorderLayout.CENTER);
+		iPane.setAdmin(true);
 		revalidate();
 		repaint();
 	}
@@ -126,17 +165,24 @@ public class Client_Frame extends JFrame{
 		bottomButtons.remove(createNew);
 		bottomButtons.remove(deleteSelected);
 		bottomButtons.remove(importCSV);
-
+		iPane.setAdmin(false);
 		revalidate();
 		repaint();
 	}
 	
-	/// A simple method for passing user input for search requests.
-	/// output: String containing users keywords to search, and the component type selected.
-	public ResultSet search(String[] searchString)
+	/*
+	 *  A simple method for passing user input for search requests.
+	 *  output: String containing users keywords to search, and the component type selected.
+	 */
+	
+	public ResultSet search(String[] searchString)		// changed from returning ArrayList<ArrayList<String>>
 	{
-		ResultSet searchResults = comms.sendQuery(searchString);
-		return searchResults;
+		return comms.sendQuery(searchString);
 	}
 
+	public List<String> getTables()
+	{
+		return comms.getTables();
+	}
+	
 }
