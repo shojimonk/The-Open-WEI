@@ -35,6 +35,7 @@ public class GUI_Runtime {
 			if(!argsCheck)
 			{
 				String host = JOptionPane.showInputDialog(null, "Enter Host", "Enter Host", JOptionPane.QUESTION_MESSAGE);
+				if(host.isEmpty()){ return; }
 				String port = JOptionPane.showInputDialog(null, "Enter Port", "Enter Port", JOptionPane.QUESTION_MESSAGE);
 				hostPort = hostPort.concat(host);
 				if(port.length() > 0){
