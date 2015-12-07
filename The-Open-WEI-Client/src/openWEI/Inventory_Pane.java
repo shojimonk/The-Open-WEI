@@ -22,25 +22,25 @@ import java.util.ArrayList;
 public class Inventory_Pane extends JPanel{
 
 	private static final long serialVersionUID = -5690829863264167768L;
+	private List<String> colNames;
+	private Client_Frame mainFrame;
+	private NewData_Pane newDatPane;
+	private static boolean admin;
+	private List<String> typeNames;
+	private List<int[]> modified;
+	private String currentTable;
+	
 	private JButton searchButton;
 	private JTextField keySearch;
 	private JPanel searchInterface;
 	private JTable searchTable;
 	private JScrollPane resultScroll;
-	private List<String> colNames;
 	private JComboBox<Object[]> types;
 	private JLabel searchLabel;
 	private JLabel inLabel;
-	private Client_Frame mainFrame;
-	private NewData_Pane newDatPane;
 	private DefaultTableModel tableModel;
-	private static boolean admin;
 	TableHandler tableChanges;
-	//private ArrayList<ArrayList<String>> currentResults;
-	private List<String> typeNames;
 	private ResultSet currentResults;
-	private List<int[]> modified;
-	private String currentTable;
 	
 	/**
 	 * constructor for JPanel that shows all search information.
@@ -79,7 +79,7 @@ public class Inventory_Pane extends JPanel{
 		searchInterface.add(searchButton);
 		add(resultScroll, BorderLayout.CENTER);
 		
-		inventHandler myHandl = new inventHandler();
+		inventoryHandler myHandl = new inventoryHandler();
 		keySearch.addActionListener(myHandl);
 		searchButton.addActionListener(myHandl);
 		
@@ -153,14 +153,13 @@ public class Inventory_Pane extends JPanel{
 		toModify.add(id);
 		return toModify;
 	}
-	
-	
+		
 	/**
 	 * Event handler for search button and pressing enter key in the keyword field.
 	 * @author ShojiStudios
 	 *
 	 */
-	private class inventHandler implements ActionListener
+	private class inventoryHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
@@ -234,6 +233,7 @@ public class Inventory_Pane extends JPanel{
 		return tmpModel;
 	}
 	
+
 	/**
 	 * Called for class to set/update the list of tables that the user can search.
 	 */
@@ -246,6 +246,7 @@ public class Inventory_Pane extends JPanel{
 		repaint();
 	}
 	
+
 	/**
 	 * Clears the list of table cells that have been modified.
 	 */
@@ -253,6 +254,7 @@ public class Inventory_Pane extends JPanel{
 		modified.clear();
 	}
 	
+
 	/**
 	 * Sets current users admin status to the passed boolean value.
 	 * @param status whether user has admin privileges or not.
@@ -261,6 +263,7 @@ public class Inventory_Pane extends JPanel{
 		admin = status;
 	}
 	
+
 	/**
 	 * returns whether or not current user has logged in as admin or not.
 	 * @return boolean representing admin status.
@@ -269,18 +272,26 @@ public class Inventory_Pane extends JPanel{
 		return admin;
 	}
 	
+
 	/**
-	 * 
+	 * Spawns a new window for user to enter values to input into the currently searched table.
+	 * As such, user must have searched for a table before clicking the New Data button.
 	 */
 	public void createNew(){
-		List<String> fields = new ArrayList<String>();
-		List<String> values = new ArrayList<String>();
+		colNames = new ArrayList<String>();
 		
-		// create window to enter new data
+		for(int i = 0; i < tableModel.getColumnCount(); i++){
+			if((tableModel.getColumnName(i).equals("id")) || (tableModel.getColumnName(i).equals("last_modified"))){ 
+				continue; 
+			}
+			colNames.add(tableModel.getColumnName(i));
+		}
 		
-		newDatPane = new NewData_Pane(this, fields);
+		newDatPane = new NewData_Pane(this, colNames);
 		newDatPane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newDatPane.setVisible(true);
+		this.setEnabled(false);
+		mainFrame.setBottomButtonEnabled(false);
 	}
 	
 	/**
@@ -298,33 +309,59 @@ public class Inventory_Pane extends JPanel{
 				newDatPane.setEnabled(true);
 				return;
 			}else{
+				newResult = true;
 				newDatPane.setVisible(false);
 				newDatPane.dispose();				
 			}
 			
 		}
+		this.setEnabled(true);
+		mainFrame.setBottomButtonEnabled(true);
 		newDatPane.setVisible(false);
 		newDatPane.dispose();
+		keySearch.setText("");
+		searchButton.doClick();
 	}
 	
 	/**
-	 * 
+	 * Cancels the addition of new data to table. Clears out NewData pane and re-enables main frame.
 	 */
 	public void cancelNew(){
+		this.setEnabled(true);
+		mainFrame.setBottomButtonEnabled(true);
 		newDatPane.setVisible(false);
 		newDatPane.dispose();
 	}
 	
+
 	/**
 	 *  Simple method for passing which rows in the JTable the user has selected.
 	 *  Used when an admin has clicked a button in client frame for "delete".
 	 * @return	An integer array containing the row numbers which are highlighted.
 	 */ 
-	public int[] getSelectedRows()
+	public List<String> getSelectedRows()
 	{
 		int[] selected = searchTable.getSelectedRows();
-		for(int each : selected) System.out.println(String.format("%03d", each));
-		return selected;
+		List<String> selectedIDs = new ArrayList<String>();
+		for(int each : selected){
+			selectedIDs.add(tableModel.getValueAt(each, 0).toString());
+		}
+		return selectedIDs;
 	}
 	
+	/**
+	 * Only used by delete selected rows button to get the current table name.
+	 * @return String containing the currently searched tables name.
+	 */
+	public String getTable()
+	{
+		return currentTable;
+	}
+
+	/**
+	 * Used to refresh the current table after a delete operation.
+	 */
+	public void refreshSearch(){
+		searchButton.doClick();
+	}
 }

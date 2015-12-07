@@ -65,6 +65,9 @@ public class Client_Frame extends JFrame{
 		deleteSelected.addActionListener(myHandler);
 		createNew.addActionListener(myHandler);
 		importCSV.addActionListener(myHandler);
+		
+		createNew.setEnabled(false);
+		deleteSelected.setEnabled(false);
 				
 	}
 	
@@ -103,12 +106,14 @@ public class Client_Frame extends JFrame{
 					return;
 				}
 				System.out.println("Is null.");
-				//iPane.getSelectedRows();
-				//iPane.createMod();
 			}
 			else if(event.getSource() == createNew)
 			{
-				// spawn window for entering new data 
+				iPane.createNew();
+			}
+			else if(event.getSource() == deleteSelected){
+				comms.deleteRows(iPane.getTable(), iPane.getSelectedRows());
+				iPane.refreshSearch();
 			}
 		}
 	}
@@ -191,11 +196,15 @@ public class Client_Frame extends JFrame{
 	
 	/**
 	 * A simple method for passing user input for search requests.
+	 * Enables create new and delete selected buttons, as they have no functionality until 
+	 * the user has performed a search on a table.
 	 * @param searchString String containing users keywords to search, and the component type selected.
 	 * @return ResultSet containing results of the users search.
 	 */
 	public ResultSet search(String[] searchString)		// changed from returning ArrayList<ArrayList<String>>
 	{
+		createNew.setEnabled(true);
+		deleteSelected.setEnabled(true);
 		return comms.sendQuery(searchString);
 	}
 
@@ -208,6 +217,20 @@ public class Client_Frame extends JFrame{
 		return comms.getTables();
 	}
 
+	/**
+	 * Used to batch enable/disable user features when only one area should be interacted with.
+	 * @param truth Whether to enable (true) or disable (false) the buttons.
+	 */
+	public void setBottomButtonEnabled(boolean truth){
+		userLogin.setEnabled(truth);
+		userLogout.setEnabled(truth);
+		commitModify.setEnabled(truth);
+		deleteSelected.setEnabled(truth);
+		createNew.setEnabled(truth);
+		importCSV.setEnabled(truth);
+		bottomButtons.setEnabled(truth);
+	}
+	
 	/**
 	 * Passes new data entry request to Database Communications class.
 	 * @param table Name of the Table being added to.

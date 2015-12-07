@@ -40,8 +40,8 @@ public class Database_Communications {
 	{
 		
 		Properties connProperties = new Properties();
-		connProperties.setProperty("user", "nuh-uh");
-		connProperties.setProperty("password", "secret");
+		connProperties.setProperty("user", "thinkso?");
+		connProperties.setProperty("password", "iDont");
 		//connProperties.setProperty("ssl", "true");
 		String url = "jdbc:postgresql://" +hostPort+"/ohmbaseopenwei";
 		
@@ -92,7 +92,7 @@ public class Database_Communications {
 		ResultSet results = null;
 		
 		try{
-			PreparedStatement ps = conn.prepareStatement("SELECT ID, name, notes, quantity, last_modified, spec_sheets, location from "+ search[0] +" where "+ search[0] +".name like ? ;");
+			PreparedStatement ps = conn.prepareStatement("SELECT ID, name, notes, quantity, last_modified, spec_sheets, location from "+ search[0] +" where "+ search[0] +".name ilike ? ;");
 			ps.setString(1, "%" + search[1] + "%");
 			results = ps.executeQuery();
 		}
@@ -140,6 +140,11 @@ public class Database_Communications {
 	public boolean newEntry(String compType, List<String> fields, List<String> values)
 	{
 		try {
+			int index = fields.indexOf("location");
+			if((index != -1) && (values.get(index).equals(""))){
+				System.out.println("no location given.");
+				values.set(index, "Unsorted");
+			}
 			int fldCount = fields.size();						// Start defining insert statement
 			String sttmnt = "insert into " + compType + " (" + fields.get(0);
 			for(int i = 1; i < fldCount; i++){				
@@ -190,6 +195,27 @@ public class Database_Communications {
 		}
 		
 		return columns;
+	}
+
+	/**
+	 * Creates delete query for given row IDs in the given table.
+	 * @param table The table to delete from.
+	 * @param ids The IDs of the rows to be deleted.
+	 * @return boolean representing success or failure of the delete operations.
+	 */
+	public boolean deleteRows(String table, List<String> ids)
+	{
+		for(String each : ids){
+			String query = "delete from "+ table +" where id = "+ each;
+			try {
+				Statement stmnt = conn.createStatement();
+				stmnt.executeUpdate(query);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

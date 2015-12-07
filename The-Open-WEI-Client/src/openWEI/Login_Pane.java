@@ -14,13 +14,14 @@ import jBCrypt.BCrypt;
 public class Login_Pane extends JPanel{
 
 	private static final long serialVersionUID = -4615172399730986636L;
+	private Client_Frame mainFrame;
+	
 	private JButton logIn;
 	private JButton cancel;
 	private JTextField name;
 	private JPasswordField pass;
 	private JLabel nameLabel;
 	private JLabel passLabel;
-	private Client_Frame mainFrame;
 	
 	/**
 	 * Constructor. Only initializes all buttons, text/password fields, and handlers

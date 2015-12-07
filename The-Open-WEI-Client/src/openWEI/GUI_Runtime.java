@@ -51,6 +51,7 @@ public class GUI_Runtime {
 				hostPort = "";
 			}
 		}
+		myFrame.setLocationRelativeTo(null);
 		myFrame.setVisible(true);
 	}
 }
