@@ -16,7 +16,7 @@
          // have table for all search result to enter
          List<tableinfo> list_table = new List<tableinfo>();
         // connection information for the database
-         NpgsqlConnection conn = new NpgsqlConnection("Server=Localhost; Port=5432; Database=ohmbaseopenwei; User Id=postgres; Password=pandabear;");
+         NpgsqlConnection conn = new NpgsqlConnection("Server=Localhost; Port=5432; Database=ohmbaseopenwei; User Id=postgres; Password=;");
          //connect to database
          conn.Open();
          NpgsqlCommand cmd;
@@ -33,7 +33,7 @@
         }
          else{
             //first query which checks uses whole entered data as the parameters for the search
-            cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM "+part+" WHERE name LIKE :namep", conn);
+            cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM "+part+" WHERE name ILIKE :namep", conn);
             //prevents injection attacks
             cmd.Parameters.Add(new NpgsqlParameter("namep", NpgsqlDbType.Varchar));
             string nameset = "%" + name + "%";
@@ -70,14 +70,14 @@
                  else
                  {
                      //adds to new AND and OR queries
-                     andquery = andquery +" AND name LIKE"+ " :name" + i.ToString();
-                     orquery = orquery + " OR name LIKE" + " :name" + i.ToString();
+                     andquery = andquery +" AND name ILIKE"+ " :name" + i.ToString();
+                     orquery = orquery + " OR name ILIKE" + " :name" + i.ToString();
                      
                  }
 
              }
              //Searches with new AND query
-             cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM " + part + " WHERE name LIKE " + andquery, conn);
+             cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM " + part + " WHERE name ILIKE " + andquery, conn);
              for (int i = 0; i < splitnames.Count; i++)
              {
                  cmd.Parameters.Add(new NpgsqlParameter("name"+i.ToString(), NpgsqlDbType.Varchar));
@@ -97,7 +97,7 @@
              conn.Close();
              conn.Open();
              //Searches with new OR query 
-             cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM " + part + " WHERE name LIKE " + orquery, conn);
+             cmd = new NpgsqlCommand("SELECT name, notes, quantity, last_modified, spec_sheets FROM " + part + " WHERE name ILIKE " + orquery, conn);
              for (int i = 0; i < splitnames.Count; i++)
              {
                  cmd.Parameters.Add(new NpgsqlParameter("name" + i.ToString(), NpgsqlDbType.Varchar));
