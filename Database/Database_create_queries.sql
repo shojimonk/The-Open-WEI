@@ -217,7 +217,7 @@ create table other
 	ID serial primary key,
 	name text null constraint valid_name check (length(name) > 0),
 	notes text,
-	quantity text null constraint valid_quantity check (length(quantity) > 0,
+	quantity text null constraint valid_quantity check (length(quantity) > 0),
 	last_modified date default current_date,
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
