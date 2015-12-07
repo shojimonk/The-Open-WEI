@@ -1,41 +1,41 @@
-1. Discussed possible projects-30 min
+17/09/2015Discussed possible projects-30 min
 	-contacted Greg Toombs and he put us in contact with Chris from ohmbase at the Red River Public Library
-2. Met with client to discuss the project.-45 min
+21/09/2015 Met with client to discuss the project.-45 min
 	-Met with Chris from ohmbase, his project was an invetory management system that should be able to be accessed localy and from the web.
-3. Discussed requirments of the project.-1 hour
+22/09/2015 Discussed requirments of the project.-1 hour
 	-Decided on a team leader and what each persons responsibility for the project was going to be.
-4. worked on requirements document-4 hours
+23/09/2015 worked on requirements document-4 hours
 	-
-5. Met to finalize requirements document-15 min
+25/09/2015 Met to finalize requirements document-15 min
 	-Agreed with the contents of the document, signed and handed in the document
-6. Meeting with client to discuss requirements document-40 min
+7/10/2015 Meeting with client to discuss requirements document-40 min
 	-Discussed the correctness of the document and on which parts needed improvement
-7. discuss and work on Specifications & SPMP document-6 hours
+10/10/2015 discuss and work on Specifications & SPMP document-6 hours
 	-
-8. Met to finalize Specifications & SPMP document-15 min
+16/10/2015. Met to finalize Specifications & SPMP document-15 min
 	-Agreed on the contents of the document, signed and handed in the document
-9 Meeting with client to discuss Specifications & SPMP document-40 min
+21/10/2015 Meeting with client to discuss Specifications & SPMP document-40 min
 	-Discussed the correctness of the document and on which parts needed improvement
-10. discuss and work on Design document-5 hours
+1/11/2015 discuss and work on Design document-5 hours
 	-
-11. Met to finalize Design document	-15 min
+6/11/2015 Met to finalize Design document	-15 min
 	-Agreed on the contents of the document, signed and handed in the document
-12. Meeting with Dr.Naser to discuss design document- 30 min
-13. work on the design and programing of the project.- 10 hours
+11/11/2015 Meeting with Dr.Naser to discuss design document- 30 min
+12/11/2015 work on the design and programing of the project.- 10 hours
 	-began work on the client program, database, and website
-14. Continued work on programing of the project-13 hours
+14/11/2015 Continued work on programing of the project-13 hours
 	-discussed where we each were in the project and continued working on the project
-15. discuss and work on testing document-4 hours
+15/11/2015 discuss and work on testing document-4 hours
 	-
-16. Met to finalize testing document-15 min
+20/11/2015 Met to finalize testing document-15 min
 	-Agreed on the contents of the document, signed and handed in the document
 	
-17. Continuing work on programing of project-12 hours
+30/11/2015 Continuing work on programing of project-12 hours
 	-discussed where we each were in the project and continued working on the project
-18. Met with server admin and work on project-6 hours
+4/11/2015 Met with server admin and work on project-6 hours
 	-
-19. work on testing project-12 hours
-20. work on integration- 14 hours
-21. met with server worker to gain more access to the server-2 hours
-22. Finalized integration-4 hours
-23. Demo project for client
+5/12/2015. work on testing project-12 hours
+6/12/2015 work on integration- 14 hours
+6/12/2015 met with server worker to gain more access to the server-2 hours
+7/12/2015 Finalized integration-4 hours
+7/12/2015 Demo project for client

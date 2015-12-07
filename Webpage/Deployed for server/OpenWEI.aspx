@@ -16,13 +16,11 @@
             background-color: #FFFFFF;
 
         }
-
         table, td, th {
             border: 2px solid black;
             padding: 5px;
             color : #000000;
         }
-
         th {
 	        text-align: left;
         }
@@ -72,19 +70,24 @@
        <div>
        
        <%
+           //looks at url and checks if it sees Search=read 
         if (Request.QueryString["Search"]=="read")
         {
+            //checks if the user selected a part
             if (Request.Form["parts"] == "")
             Response.Write("<div>Please Select a Part before searching</div>");
             else
             {
+                //runs search and gets results back in a list
                 List<tableinfo> temp_list = searchcontrol.Read(Request.Form["parts"], Request["search_name"]);
+                //if it has any results
                 if (temp_list.Any())
                 {
+                    //displays total results count
                     Response.Write(String.Format("<div>{0} Results found</div>", temp_list.Count()));
                     Response.Write("<div><table>");
                     Response.Write("<tr><th style= width:20% >Name</th><th style= width:30% >Notes</th><th style= width:5% >Quantity</th><th style = width:10% >Last Modified</th><th  style = width:35% >Spec Sheets</th></tr>");
-
+                    //the results are loaded into a table
                     for (int i = 0; i < temp_list.Count; i++)
                     {
                         Response.Write(String.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>",
@@ -94,6 +97,7 @@
                     Response.Write("</table></div>");
                    
                 }
+                // if no results found it displays 0 found
                 else
                     Response.Write("<div>0 Results found</div>");
             }
