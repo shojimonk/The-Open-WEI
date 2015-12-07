@@ -1,0 +1,37 @@
+1. Discussed possible projects
+	-contacted Greg Toombs and he put us in contact with Chris from ohmbase at the Red River Public Library
+2. Met with client to discuss the project.
+	-Met with Chris from ohmbase, his project was an invetory management system that should be able to be accessed localy and from the web.
+3. Discussed requirments of the project.
+	-Decided on a team leader and what each persons responsibility for the project was going to be.
+4. worked on requirements document
+	-
+5. Met to finalize requirements document
+	-Agreed with the contents of the document, signed and handed in the document
+6. Meeting with client to discuss requirements document
+	-Discussed the correctness of the document and on which parts needed improvement
+7. discuss and work on Specifications & SPMP document
+	-
+8. Met to finalize Specifications & SPMP document
+	-Agreed on the contents of the document, signed and handed in the document
+9 Meeting with client to discuss Specifications & SPMP document
+	-Discussed the correctness of the document and on which parts needed improvement
+10. discuss and work on Design document
+	-
+11. Met to finalize Design document	
+	-Agreed on the contents of the document, signed and handed in the document
+12. Meeting with Dr.Naser to discuss design document
+13. work on the design and programing of the project.
+	-began work on the client program, database, and website
+14. Continued work on programing of the project
+15. discuss and work on testing document
+16. Met to finalize testing document
+	-Agreed on the contents of the document, signed and handed in the document
+17. Meeting with Dr.Naser to discuss testing document
+18. Continuing work on programing of project
+19. Met with server admin to get a windows partition for the server
+20. started testing project
+21. started integration testing
+22. met with server worker to gain more access to the server
+23. Finalized integration
+24. Demo project for client
