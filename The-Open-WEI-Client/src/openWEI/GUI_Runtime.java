@@ -21,7 +21,7 @@ public class GUI_Runtime {
 			if(args.length == 2){
 				argsCheck = true;
 				hostPort = hostPort.concat(args[0]);
-				hostPort = hostPort.concat(args[1]);
+				hostPort = hostPort.concat(":" +args[1]);
 			}
 		}
 		catch(NullPointerException ex){

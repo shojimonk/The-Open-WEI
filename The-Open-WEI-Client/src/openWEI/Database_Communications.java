@@ -40,8 +40,8 @@ public class Database_Communications {
 	{
 		
 		Properties connProperties = new Properties();
-		connProperties.setProperty("user", "thinkso?");
-		connProperties.setProperty("password", "iDont");
+		connProperties.setProperty("user", "username");
+		connProperties.setProperty("password", "password");
 		//connProperties.setProperty("ssl", "true");
 		String url = "jdbc:postgresql://" +hostPort+"/ohmbaseopenwei";
 		
@@ -65,7 +65,6 @@ public class Database_Communications {
 	public Boolean checkLogin(String[] login)
 	{
 		ResultSet results = null;
-		Statement stmnt = null;
 		String searchable = "select username, password from users.account where username = ?;";
 		try {
 			PreparedStatement ps = conn.prepareStatement(searchable);
