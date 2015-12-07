@@ -64,6 +64,7 @@
     <Content Include="corner.png" />
     <Content Include="headerbar.png" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Ohmbase server.pubxml" />
     <None Include="Properties\PublishProfiles\OhmbaseTest.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

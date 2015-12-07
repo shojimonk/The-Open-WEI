@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Brandon\Desktop\The-Open-WEI\Webpage\Deployed for server</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Npgsql.dll">
+      <publishTime>12/03/2015 14:45:14</publishTime>
+    </File>
+    <File Include="bin/OhmBaseOpenWei.dll">
+      <publishTime>12/06/2015 14:51:58</publishTime>
+    </File>
+    <File Include="corner.png">
+      <publishTime>12/05/2015 20:44:39</publishTime>
+    </File>
+    <File Include="headerbar.png">
+      <publishTime>12/04/2015 15:15:25</publishTime>
+    </File>
+    <File Include="OpenWEI.aspx">
+      <publishTime>12/05/2015 20:35:06</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/03/2015 14:45:15</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/06/2015 14:51:59</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

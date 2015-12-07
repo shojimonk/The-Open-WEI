@@ -24,14 +24,18 @@
 13. work on the design and programing of the project.
 	-began work on the client program, database, and website
 14. Continued work on programing of the project
+	-discussed where we each were in the project and continued working on the project
 15. discuss and work on testing document
+	-
 16. Met to finalize testing document
 	-Agreed on the contents of the document, signed and handed in the document
-17. Meeting with Dr.Naser to discuss testing document
-18. Continuing work on programing of project
-19. Met with server admin to get a windows partition for the server
-20. started testing project
-21. started integration testing
-22. met with server worker to gain more access to the server
-23. Finalized integration
-24. Demo project for client
+	
+17. Continuing work on programing of project
+	-discussed where we each were in the project and continued working on the project
+18. Met with server admin to get a windows partition for the server
+	-
+19. work on testing project
+20. work on integration
+21. met with server worker to gain more access to the server
+22. Finalized integration
+23. Demo project for client
