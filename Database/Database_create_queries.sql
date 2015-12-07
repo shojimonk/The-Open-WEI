@@ -12,6 +12,8 @@ create table amplifiers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (amplifiers);
+
 create table batteries
 ( 
 	ID serial primary key,
@@ -21,7 +23,9 @@ create table batteries
 	last_modified date default current_date,
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
-	);
+);
+CREATE UNIQUE INDEX name ON table (batteries);
+	
 create table buzzers
 (
 	ID serial primary key,
@@ -32,6 +36,8 @@ create table buzzers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (buzzers);
+
 create table capacitors
 (
 	ID serial primary key,
@@ -42,6 +48,8 @@ create table capacitors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (capacitors);
+
 create table diodes
 (
 	ID serial primary key,
@@ -52,6 +60,8 @@ create table diodes
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (diodes);
+
 create table fuses
 (
 	ID serial primary key,
@@ -62,6 +72,8 @@ create table fuses
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (fuses);
+
 create table inductors
 (
 	ID serial primary key,
@@ -72,6 +84,8 @@ create table inductors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (inductors);
+
 create table isolators
 (
 	ID serial primary key,
@@ -82,6 +96,8 @@ create table isolators
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (isolators);
+
 create table leds
 (
 	ID serial primary key,
@@ -92,6 +108,8 @@ create table leds
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (leds);
+
 create table logic_gates
 (
 	ID serial primary key,
@@ -102,6 +120,8 @@ create table logic_gates
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (logic_gates);
+
 create table microcontrollers
 (
 	ID serial primary key,
@@ -112,6 +132,8 @@ create table microcontrollers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (microcontrollers);
+
 create table microphones
 (
 	ID serial primary key,
@@ -122,6 +144,8 @@ create table microphones
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (microphones);
+
 create table motors
 (
 	ID serial primary key,
@@ -132,6 +156,8 @@ create table motors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (motors);
+
 create table oscillators
 (
 	ID serial primary key,
@@ -142,6 +168,8 @@ create table oscillators
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (oscillators);
+
 create table potentiometers
 (
 	ID serial primary key,
@@ -152,6 +180,8 @@ create table potentiometers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (potentiometers);
+
 create table power_supplies
 (
 	ID serial primary key,
@@ -162,6 +192,8 @@ create table power_supplies
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (power_supplies);
+
 create table resistors
 (
 	ID serial primary key,
@@ -172,6 +204,8 @@ create table resistors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (resistors);
+
 create table sensors
 (
 	ID serial primary key,
@@ -182,6 +216,8 @@ create table sensors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (sensors);
+
 create table speakers
 (
 	ID serial primary key,
@@ -192,6 +228,8 @@ create table speakers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (speakers);
+
 create table transformers
 (
 	ID serial primary key,
@@ -202,6 +240,8 @@ create table transformers
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (transformers);
+
 create table transistors
 (
 	ID serial primary key,
@@ -212,6 +252,8 @@ create table transistors
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (transistors);
+
 create table other
 (
 	ID serial primary key,
@@ -222,6 +264,7 @@ create table other
 	spec_sheets text,
 	location text null constraint valid_location check (length(location) > 0)
 );
+CREATE UNIQUE INDEX name ON table (other);
 
 create schema users;
 create table users.account
