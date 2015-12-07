@@ -133,14 +133,39 @@ public class Database_Communications {
 	
 	/**
 	 * For adding a new entry to the database in the chosen table.
-	 * @param compType
-	 * @param values
-	 * @return
+	 * @param compType The table to add the new entry to.
+	 * @param values The values for the new entry
+	 * @return Boolean success or failure of addition of new data.
 	 */
-	public boolean newEntry(String compType, String values)
+	public boolean newEntry(String compType, List<String> fields, List<String> values)
 	{
-		
-		
+		try {
+			int fldCount = fields.size();						// Start defining insert statement
+			String sttmnt = "insert into " + compType + " (" + fields.get(0);
+			for(int i = 1; i < fldCount; i++){				
+				sttmnt = sttmnt.concat(", " + fields.get(i));	// "fields" is built entirely by us, so no concern of injection attacks
+			}
+			sttmnt = sttmnt.concat(") values (?");
+			for(int i = 1; i < fldCount; i++){
+				sttmnt = sttmnt.concat(", ?");
+			}
+			sttmnt = sttmnt.concat(");");						// finish defining insert statement.
+			PreparedStatement ps = conn.prepareStatement(sttmnt);
+			
+			for(int i = 0; i < fldCount; i++){
+				if((fields.get(i).equals("quantity")) && (!compType.equals("other"))){
+					ps.setInt(i+1, Integer.parseInt(values.get(i)));		// only quantity field stored as an integer (unless in the "other" table)
+				}else{
+					ps.setString(i+1, values.get(i));
+				}
+			}
+			ps.executeUpdate();
+			
+		} catch (SQLException ex) {
+			System.out.println("Error parsing new entry.");
+			ex.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 	

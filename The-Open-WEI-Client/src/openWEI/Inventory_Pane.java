@@ -278,9 +278,33 @@ public class Inventory_Pane extends JPanel{
 		
 		// create window to enter new data
 		
-		newDatPane = new NewData_Pane(this, fields, values);
+		newDatPane = new NewData_Pane(this, fields);
 		newDatPane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newDatPane.setVisible(true);
+	}
+	
+	/**
+	 * For sending new data entry to database
+	 * @param values user given values for each field.
+	 */
+	public void sendNew(List<String> values){
+		boolean newResult = mainFrame.newEntry(currentTable, colNames, values);
+		newDatPane.setEnabled(false);
+		while(!newResult){
+			int control = JOptionPane.showConfirmDialog(null, "Error adding new data: Try Again?", "New Data Error", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+			if(control == JOptionPane.YES_OPTION){
+				newResult = mainFrame.newEntry(currentTable, colNames, values);
+			}else if(control == JOptionPane.CANCEL_OPTION){
+				newDatPane.setEnabled(true);
+				return;
+			}else{
+				newDatPane.setVisible(false);
+				newDatPane.dispose();				
+			}
+			
+		}
+		newDatPane.setVisible(false);
+		newDatPane.dispose();
 	}
 	
 	/**

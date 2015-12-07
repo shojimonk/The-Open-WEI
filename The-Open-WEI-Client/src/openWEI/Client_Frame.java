@@ -207,5 +207,16 @@ public class Client_Frame extends JFrame{
 	{
 		return comms.getTables();
 	}
-	
+
+	/**
+	 * Passes new data entry request to Database Communications class.
+	 * @param table Name of the Table being added to.
+	 * @param columns List of columns within the table.
+	 * @param newData List of user entered data to enter into each column
+	 * @return Boolean representing success or failure of addition of new entry.
+	 */
+	public boolean newEntry(String table, List<String> columns, List<String> newData)
+	{
+		return comms.newEntry(table, columns, newData);
+	}
 }
