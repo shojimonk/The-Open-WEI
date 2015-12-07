@@ -24,7 +24,7 @@ public class Client_Frame extends JFrame{
 	private JButton createNew;
 	private JButton commitModify;
 	private JButton deleteSelected;
-	private JButton importCSV;
+	//private JButton importCSV;		//not implemented
 	private JButton userLogin;
 	private JButton userLogout;
 	private JPanel bottomButtons;
@@ -43,7 +43,7 @@ public class Client_Frame extends JFrame{
 		createNew = new JButton("Create New Entry");
 		commitModify = new JButton("Commit Modifications");
 		deleteSelected = new JButton("Delete Selected Data");
-		importCSV = new JButton("Import .csv");
+		//importCSV = new JButton("Import .csv");			//not implemented
 		userLogin = new JButton("Log In");
 		userLogout = new JButton("Log Out");
 		
@@ -62,7 +62,7 @@ public class Client_Frame extends JFrame{
 		commitModify.addActionListener(myHandler);
 		deleteSelected.addActionListener(myHandler);
 		createNew.addActionListener(myHandler);
-		importCSV.addActionListener(myHandler);
+		//importCSV.addActionListener(myHandler);			//not implemented
 		
 		createNew.setEnabled(false);
 		deleteSelected.setEnabled(false);
@@ -165,7 +165,7 @@ public class Client_Frame extends JFrame{
 		bottomButtons.remove(userLogin);
 		bottomButtons.add(createNew);
 		bottomButtons.add(deleteSelected);
-		bottomButtons.add(importCSV);
+		//bottomButtons.add(importCSV);			//not implemented
 		bottomButtons.add(userLogout);
 		commitModify.setEnabled(true);
 		
@@ -186,7 +186,7 @@ public class Client_Frame extends JFrame{
 		bottomButtons.add(userLogin);
 		bottomButtons.remove(createNew);
 		bottomButtons.remove(deleteSelected);
-		bottomButtons.remove(importCSV);
+		//bottomButtons.remove(importCSV);		//not implemented
 		iPane.setAdmin(false);
 		revalidate();
 		repaint();
@@ -225,7 +225,7 @@ public class Client_Frame extends JFrame{
 		commitModify.setEnabled(truth);
 		deleteSelected.setEnabled(truth);
 		createNew.setEnabled(truth);
-		importCSV.setEnabled(truth);
+		//importCSV.setEnabled(truth);		//not implemented
 		bottomButtons.setEnabled(truth);
 	}
 	
