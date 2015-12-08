@@ -38,7 +38,7 @@ public class Inventory_Pane extends JPanel{
 	private JLabel searchLabel;
 	private JLabel inLabel;
 	private DefaultTableModel tableModel;
-	TableHandler tableChanges;
+	private TableHandler tableChanges;
 	private ResultSet currentResults;
 	
 	/**
@@ -78,7 +78,7 @@ public class Inventory_Pane extends JPanel{
 		searchInterface.add(searchButton);
 		add(resultScroll, BorderLayout.CENTER);
 		
-		inventoryHandler myHandl = new inventoryHandler();
+		Inventory_Handler myHandl = new Inventory_Handler();
 		keySearch.addActionListener(myHandl);
 		searchButton.addActionListener(myHandl);
 		
@@ -158,7 +158,7 @@ public class Inventory_Pane extends JPanel{
 	 * @author ShojiStudios
 	 *
 	 */
-	private class inventoryHandler implements ActionListener
+	private class Inventory_Handler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
@@ -231,7 +231,6 @@ public class Inventory_Pane extends JPanel{
 		
 		return tmpModel;
 	}
-	
 
 	/**
 	 * Called for class to set/update the list of tables that the user can search.
@@ -245,7 +244,6 @@ public class Inventory_Pane extends JPanel{
 		repaint();
 	}
 	
-
 	/**
 	 * Clears the list of table cells that have been modified.
 	 */
@@ -262,16 +260,6 @@ public class Inventory_Pane extends JPanel{
 		admin = status;
 	}
 	
-
-	/**
-	 * returns whether or not current user has logged in as admin or not.
-	 * @return boolean representing admin status.
-	 */
-	public boolean checkAdmin(){
-		return admin;
-	}
-	
-
 	/**
 	 * Spawns a new window for user to enter values to input into the currently searched table.
 	 * As such, user must have searched for a table before clicking the New Data button.

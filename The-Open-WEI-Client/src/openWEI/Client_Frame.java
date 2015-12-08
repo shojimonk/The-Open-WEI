@@ -56,7 +56,7 @@ public class Client_Frame extends JFrame{
 		bottomButtons.add(commitModify);
 		bottomButtons.add(userLogin);
 		
-		actionHandler myHandler = new actionHandler();
+		Client_Handler myHandler = new Client_Handler();
 		userLogin.addActionListener(myHandler);
 		userLogout.addActionListener(myHandler);
 		commitModify.addActionListener(myHandler);
@@ -75,7 +75,7 @@ public class Client_Frame extends JFrame{
 	 * @author ShojiStudios
 	 *
 	 */
-	private class actionHandler implements ActionListener
+	private class Client_Handler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == userLogin)
@@ -98,12 +98,11 @@ public class Client_Frame extends JFrame{
 			{
 				List<List<String>> modifications = iPane.confirmModify();
 				if(modifications != null){
-					System.out.println("Not null.");
 					boolean updated = comms.modifyData(modifications);
+					iPane.resetModList();
 					System.out.println("updated?:" + updated);
 					return;
 				}
-				System.out.println("Is null.");
 			}
 			else if(event.getSource() == createNew)
 			{
@@ -121,7 +120,7 @@ public class Client_Frame extends JFrame{
 	 * @param hostPort The host:port to check, in String format.
 	 * @return True if successfully connected to DB, else false.
 	 */
-	public Boolean dbCheck(String hostPort)
+	public boolean dbCheck(String hostPort)
 	{
 		try {
 			Boolean isHost = comms.checkForHost(hostPort);
@@ -139,7 +138,7 @@ public class Client_Frame extends JFrame{
 	 * @param logInfo User entered username and password to check for.
 	 * @return True if login name/pass match. else false.
 	 */
-	public Boolean login(String[] logInfo)
+	public boolean login(String[] logInfo)
 	{
 		return comms.checkLogin(logInfo);
 	}

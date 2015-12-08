@@ -45,7 +45,7 @@ public class Login_Pane extends JPanel{
 		add(logIn);
 		add(cancel);
 		
-		buttHandler loginEvent = new buttHandler();
+		Login_Handler loginEvent = new Login_Handler();
 		logIn.addActionListener(loginEvent);
 		cancel.addActionListener(loginEvent);
 		name.addActionListener(loginEvent);
@@ -77,7 +77,7 @@ public class Login_Pane extends JPanel{
 	 * @author ShojiStudios
 	 *
 	 */
-	private class buttHandler implements ActionListener
+	private class Login_Handler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event) 
 		{
