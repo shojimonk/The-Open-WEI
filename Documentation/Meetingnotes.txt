@@ -8,7 +8,7 @@
 	-Decided on a team leader and what each persons responsibility for the project was going to be.
 
 23/09/2015 Worked on requirements document - 4 hours
-	-
+	- create use case diagram, add simple use case description,and add functinaland non functional requirements
 
 25/09/2015 Met to finalize requirements document-15 min
 	-Agreed with the contents of the document, signed and handed in the document
@@ -17,7 +17,7 @@
 	-Discussed the correctness of the document and on which parts needed improvement
 
 10/10/2015 Discuss and work on Specifications & SPMP document-6 hours
-	-
+	- complete class diagrams,sequence diagrams and improved use case descriptions
 
 16/10/2015. Met to finalize Specifications & SPMP document-15 min
 	-Agreed on the contents of the document, signed and handed in the document
@@ -26,7 +26,7 @@
 	-Discussed the correctness of the document and on which parts needed improvement
 
 1/11/2015 Discuss and work on Design document-5 hours
-	-
+	- updated class diagrams and sequence diagrams,added GUI designs, and added GUI descriptions
 
 6/11/2015 Met to finalize Design document	-15 min
 	-Agreed on the contents of the document, signed and handed in the document
@@ -40,7 +40,7 @@
 	-discussed where we each were in the project and continued working on the project
 
 15/11/2015 Discuss and work on testing document - 4 hours
-	-
+	-decided testing methods and started document
 
 20/11/2015 Met to finalize testing document-15 min
 	-Agreed on the contents of the document, signed and handed in the document
@@ -55,7 +55,7 @@
 	-Performed various unit tests and integration tests on network functionality.
 
 6/12/2015 work on integration- 14 hours
-	- 
+	- set up website and client program on server and thouroughly tested
 
 6/12/2015 Met with Library IT employee to configure network access to the server - 2 hours
 	- Were previously having network connectivity issues, which were discovered to be caused by the librarys firewalls
@@ -63,4 +63,4 @@
 7/12/2015 Finalized integration-4 hours
 	- Ran all end-to-end integration tests and corrected bugs until no more bugs could be found.
 
-7/12/2015 Demo project for client
+7/12/2015 Demo project for client-30 min

@@ -1,0 +1,14 @@
+1.Test- Search data entered with invalid characters
+  Purpose- To see if the search can handle invalid data being entered
+  Expected Result- Search will be partitioned to try and get an accurate search.
+  Result- Search was successfully partitioned and search returned data relevent to what was searched
+  
+2.Test- Injection Attack entered into search	
+  Purpose- To see if the website can handle injection attacks
+  Expected Result- The search should use prepared statements on the entered data and the database wont be affected
+  Result- the database was not affected at all,  and a search result was returned.
+  
+3.Test-No part table is selected
+  Purpose- To see if the website can handle no part being selected	
+  Expected Result- the website will prompt the user to select a part
+  Result- after searching with no part being selected the website prompted to select a part before searching
