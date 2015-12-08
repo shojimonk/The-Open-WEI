@@ -55,12 +55,13 @@
 	-Performed various unit tests and integration tests on network functionality.
 
 6/12/2015 work on integration- 14 hours
-	- set up website and client program on server and thouroughly tested
+	- set up website and client program on server and thouroughly tested.
 
 6/12/2015 Met with Library IT employee to configure network access to the server - 2 hours
-	- Were previously having network connectivity issues, which were discovered to be caused by the librarys firewalls
+	- Were previously having network connectivity issues, which were discovered to be caused by the librarys firewalls.
 
 7/12/2015 Finalized integration-4 hours
 	- Ran all end-to-end integration tests and corrected bugs until no more bugs could be found.
 
 7/12/2015 Demo project for client-30 min
+	- finished demo and delivered finished project to the client.
