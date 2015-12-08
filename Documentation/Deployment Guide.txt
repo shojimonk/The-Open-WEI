@@ -1,8 +1,5 @@
 Deployment Guide:
 
-Server (and Client both?) need to have OpenSSL installed.
-	 - http://www.postgresql.org/docs/current/static/ssl-tcp.html
-
 "[for postgresql] To allow connections to other interfaces than the loopback interface, you must modify the postgresql.conf file's listen_addresses setting."
 	 - https://jdbc.postgresql.org/documentation/80/prepare.html
 
